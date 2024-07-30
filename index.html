@@ -291,5 +291,51 @@
 
 </script>
 
+<!--METODO Ventas-->
+    
+<h2><center>Lista de Ventas</center></h2>
+    
+<table id="inventariosTable">
+    <thead>
+        <tr>
+            <th><center>Producto</center></th>
+            <th><center>Cantidad</center> </th>
+            <th><center>Fecha De Ingreso</center> </th>
+            <th><center>Estado</center></th>
+            <th><center>Categoria</center></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Aquí se llenará la tabla con datos obtenidos por AJAX -->
+    </tbody>
+
+    
+</table>
+
+<script>
+    /MOSTRAR DATOS EN TABLA USANDO FETCH/
+    document.addEventListener('DOMContentLoaded', fetchInventarios);
+    async function fetchInventarios() {
+        const response = await fetch('http://54.196.141.234:3000/api/inventarios');
+        const inventarios = await response.json();
+        const tbody = document.getElementById('inventariosTable').querySelector('tbody');
+        tbody.innerHTML = '';
+
+        inventarios.forEach(inventario => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+               
+                <td class="text-center">${inventario.producto}</td>
+                <td class="text-center">${inventario.cantidad}</td>
+                <td class="text-center">${inventario.fechaingreso}</td>
+                <td class="text-center">${inventario.estado}</td>
+                <td class="text-center">${inventario.categoria}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+</script>
+</table>
+
 </body>
 </html>
